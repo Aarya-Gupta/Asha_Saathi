@@ -1,4 +1,4 @@
-#root {
+/* #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -39,4 +39,240 @@
 
 .read-the-docs {
   color: #888;
+} */
+
+
+/* General App Container */
+.app-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Header Styling */
+.app-header {
+  background-color: #27ae60;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 40px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.app-header p {
+  margin: 5px 0 0;
+  font-size: 1.1rem;
+}
+
+/* Main Content Area */
+.app-main {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Upload Button Styling */
+.upload-label {
+  display: inline-block;
+  padding: 20px 40px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  background-color: #2980b9;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.upload-label:hover {
+  background-color: #3498db;
+}
+
+.upload-input {
+  display: none; /* Hide the default file input */
+}
+
+/* Instruction Text */
+.instructions {
+  font-size: 1.1rem;
+  color: #555;
+  margin-top: 20px;
+}
+
+
+/* Loader Component Styling */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #2980b9;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+.loader-text {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ... (keep all the existing styles from Stage 6) */
+
+/* Error Component Styling */
+.error-container {
+  background-color: #e74c3c;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-container h3 {
+  margin-top: 0;
+}
+
+.retry-button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #e74c3c;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.retry-button:hover {
+  background-color: #f1f1f1;
+}
+
+/* Result Page Styling */
+.result-container {
+  background-color: #ffffff;
+  padding: 20px 30px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  text-align: left; /* Align text to the left for readability */
+}
+
+.result-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2c3e50;
+}
+
+.result-section {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.result-section:last-of-type {
+  border-bottom: none;
+  margin-bottom: 15px;
+}
+
+.result-section h3 {
+  color: #27ae60;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.result-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #34495e;
+}
+
+/* Action Points List */
+.action-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.action-item {
+  background-color: #ecf0f1;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  color: #34495e;
+  display: flex;
+  align-items: center;
+}
+
+/* A little checkmark icon for the action points */
+.action-item::before {
+  content: '✔';
+  color: #27ae60;
+  font-size: 1.5rem;
+  margin-right: 15px;
+}
+
+/* Audio Player Button */
+.play-audio-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background-color: #e67e22;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.play-audio-button:hover {
+  background-color: #f39c12;
+}
+
+.play-audio-button svg {
+  margin-right: 10px;
+}
+
+/* Reset Button */
+.reset-button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+  background-color: #3498db;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #5dade2;
 }

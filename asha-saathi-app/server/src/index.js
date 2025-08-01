@@ -4,10 +4,17 @@ const cors = require('cors');
 require('dotenv').config();
 const multer = require('multer');
 
+// --- NEW: Import DB connection and Model ---
+const connectDB = require('./config/db');
+const Report = require('./models/Report');
+
 // --- Google Cloud/AI Clients ---
 const { ImageAnnotatorClient } = require('@google-cloud/vision');
 const { TextToSpeechClient } = require('@google-cloud/text-to-speech'); // Import TTS Client
 const { GoogleGenerativeAI } = require("@google/generative-ai"); // Import Gemini Client
+
+// --- NEW: Connect to Database ---
+connectDB();
 
 // --- Initialize Clients ---
 const visionClient = new ImageAnnotatorClient(); // For OCR
@@ -82,6 +89,17 @@ app.post('/api/upload', upload.single('reportImage'), async (req, res) => {
     const [ttsResponse] = await textToSpeechClient.synthesizeSpeech(ttsRequest);
     const audioContent = ttsResponse.audioContent.toString('base64'); // Convert audio to base64 to send in JSON
     console.log('3. TTS Conversion Completed.');
+
+    // --- NEW: STAGE 5 - Save to Database ---
+    console.log('5. Saving analysis to database...');
+    const newReport = new Report({
+        patientName: analysisResult.patient_name,
+        summary: analysisResult.summary,
+        actionPoints: analysisResult.action_points,
+        originalText: extractedText
+    });
+    await newReport.save();
+    console.log('5. Analysis saved successfully.');
 
     // --- Final Response ---
     console.log('4. Sending final structured response.');
