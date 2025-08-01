@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Credentials and keys
+gcloud-credentials.json
+*credentials*.json
+*.pem
+*.key
