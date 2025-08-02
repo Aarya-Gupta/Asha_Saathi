@@ -1,13 +1,12 @@
 import React from 'react';
 
-// This component receives an error message and a retry function as props
-function ErrorComponent({ message, onRetry }) {
+function ErrorComponent({ message, onReset, t, lang }) {
   return (
     <div className="error-container">
-      <h3>कुछ गलत हो गया!</h3>
-      <p>{message || 'An unexpected error occurred. Please try again.'}</p>
-      <button onClick={onRetry} className="retry-button">
-        फिर से कोशिश करें
+      <h3>{t.errorTitle[lang]}</h3>
+      <p>{message || 'An unexpected error occurred.'}</p>
+      <button onClick={onReset} className="retry-button">
+        {t.retryButton[lang]}
       </button>
     </div>
   );

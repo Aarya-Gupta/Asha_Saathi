@@ -276,3 +276,40 @@
 .reset-button:hover {
   background-color: #5dade2;
 }
+
+/* ... (keep all the existing styles) */
+
+/* Language Selector Styling */
+.language-selector-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.language-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.language-button {
+  padding: 12px 25px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: 1px solid #bdc3c7;
+  background-color: #f4f7f6;
+  color: #2c3e50;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.language-button:hover {
+  background-color: #27ae60;
+  color: white;
+  border-color: #27ae60;
+}

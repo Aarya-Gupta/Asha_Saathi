@@ -1,12 +1,11 @@
 import React from 'react';
 
-// A simple loading spinner component to show during API calls
-function Loader() {
+function Loader({ t, lang }) { // Receive t (translations) and lang (language)
   return (
     <div className="loader-container">
       <div className="spinner"></div>
-      <p className="loader-text">रिपोर्ट पढ़ी जा रही है...</p>
-      <p className="instructions">(इसमें 30 सेकंड तक लग सकते हैं)</p>
+      <p className="loader-text">{t.loaderText[lang]}</p>
+      <p className="instructions">{t.loaderTime[lang]}</p>
     </div>
   );
 }

@@ -1,79 +1,98 @@
 import React, { useState } from 'react';
-import axios from 'axios'; // Import axios
+import axios from 'axios';
 import './App.css';
+
 import HomePage from './pages/HomePage';
 import Loader from './components/Loader';
-import ErrorComponent from './components/ErrorComponent'; // Import the new component
-import ResultPage from './pages/ResultPage'; // Import the new ResultPage
+import ErrorComponent from './components/ErrorComponent';
+import ResultPage from './pages/ResultPage';
+import LanguageSelector from './components/LanguageSelector';
+
+import { translations as t } from './translations';
 
 function App() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [language, setLanguage]     = useState(null);
+  const [isLoading, setIsLoading]   = useState(false);
   const [resultData, setResultData] = useState(null);
-  const [error, setError] = useState(''); // New state for error messages
+  const [error, setError]           = useState('');
 
-  // This is the main function to handle the API call
+  const handleSelectLanguage = (langCode) => {
+    setLanguage(langCode);
+  };
+
   const handleFileSelect = async (file) => {
-    if (!file) return;
-    
-    setSelectedFile(file);
-    setIsLoading(true);
-    setError(''); // Reset previous errors
-    setResultData(null); // Reset previous results
+    if (!file || !language) return;
 
-    // FormData is the standard way to send files to a server
+    setIsLoading(true);
+    setError('');
+    setResultData(null);
+
     const formData = new FormData();
-    formData.append('reportImage', file); // The key "reportImage" must match our backend
+    formData.append('reportImage', file);
+    formData.append('language', language);
 
     try {
-      // Make the POST request to our backend
-      const response = await axios.post('http://localhost:8080/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      const apiUrl  = 'http://localhost:8080/api/upload';
+      const response = await axios.post(apiUrl, formData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
-      
-      console.log("API Response Received:", response.data);
-      setResultData(response.data); // Store the successful response
 
+      console.log("API Response Received:", response.data);
+      setResultData(response.data);
     } catch (err) {
       console.error("API call failed:", err);
-      // Set a user-friendly error message
-      const errorMessage = err.response?.data?.error || 'सर्वर से कनेक्ट नहीं हो सका।';
-      setError(errorMessage);
+      const fallbackMsg = {
+        en: 'Could not connect to server.',
+        hi: 'सर्वर से कनेक्ट नहीं हो सका।'
+      }[language] || 'Server error.';
+      setError(err.response?.data?.error || fallbackMsg);
     } finally {
-      // This will run whether the API call succeeds or fails
       setIsLoading(false);
     }
   };
 
-  // A function to reset the app state and try again
-  const handleRetry = () => {
-    setSelectedFile(null);
-    setIsLoading(false);
+  const handleReset = () => {
     setResultData(null);
     setError('');
   };
 
-  // Helper function to decide what to render
   const renderContent = () => {
+    if (!language) {
+      return <LanguageSelector onSelectLanguage={handleSelectLanguage} />;
+    }
     if (isLoading) {
-      return <Loader />;
+      return <Loader t={t} lang={language} />;
     }
     if (error) {
-      return <ErrorComponent message={error} onRetry={handleRetry} />;
+      return <ErrorComponent
+        message={error}
+        onReset={handleReset}
+        t={t}
+        lang={language}
+      />;
     }
     if (resultData) {
-      return <ResultPage resultData={resultData} onReset={handleRetry} />;
+      // Pass translation and language into ResultPage
+      return <ResultPage
+        resultData={resultData}
+        onReset={handleReset}
+        t={t}
+        lang={language}
+      />;
     }
-    return <HomePage handleFileSelect={handleFileSelect} isLoading={isLoading} />;
-  }
+    return <HomePage
+      handleFileSelect={handleFileSelect}
+      isLoading={isLoading}
+      t={t}
+      lang={language}
+    />;
+  };
 
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>आशा सारथी</h1>
-        <p>1-Click Health Summary</p>
+        <h1>{t.appTitle[language || 'en']}</h1>
+        <p>{t.appSubtitle[language || 'en']}</p>
       </header>
       {renderContent()}
     </div>

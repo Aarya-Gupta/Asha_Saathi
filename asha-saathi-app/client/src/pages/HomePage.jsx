@@ -1,38 +1,26 @@
 import React from 'react';
 
-// The props `handleFileSelect` and `isLoading` will be passed down from App.jsx
-function HomePage({ handleFileSelect, isLoading }) {
-  
-  // This function is triggered when the user chooses a file
+function HomePage({ handleFileSelect, isLoading, t, lang }) {
   const onFileChange = (event) => {
-    // Check if files were selected
     if (event.target.files && event.target.files.length > 0) {
-      const file = event.target.files[0];
-      handleFileSelect(file); // Pass the selected file up to the parent
+      handleFileSelect(event.target.files[0]);
     }
   };
 
   return (
     <div className="app-main">
-      <h2>रिपोर्ट अपलोड करें</h2>
-      <p className="instructions">
-        मेडिकल रिपोर्ट की एक साफ़ तस्वीर चुनें।
-      </p>
-      
-      {/* 
-        This is a common pattern for file uploads. The <input> is hidden,
-        and the <label> acts as our custom, styled button.
-      */}
+      <h2>{t.uploadHeader[lang]}</h2>
+      <p className="instructions">{t.uploadInstruction[lang]}</p>
       <label htmlFor="report-upload" className="upload-label">
-        फ़ाइल चुनें
+        {t.chooseFile[lang]}
       </label>
-      <input 
+      <input
         id="report-upload"
-        type="file" 
-        accept="image/*" // Accept only image files
+        type="file"
+        accept="image/*"
         className="upload-input"
         onChange={onFileChange}
-        disabled={isLoading} // Disable button while loading
+        disabled={isLoading}
       />
     </div>
   );
