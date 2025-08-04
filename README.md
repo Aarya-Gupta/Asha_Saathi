@@ -176,5 +176,3 @@ This hackathon prototype is a powerful proof-of-concept. The next steps to make 
 ---
 
 **Built with ❤️ for AI Manthan 2025 by Tech for Seva.**
-Let me know when you're ready to push this, and I’ll guide you with the git commands as well.
-```
